@@ -10,8 +10,11 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 })
 export class AppComponent {
      request_data: Irequest = {"id":"0","name": "Kevin","surname": "Matseke","start_date": "12/08/1994","end_date": "12/10/1994", 
-     "days_taken": "#3","days_left": "#3","leave_type": "#3","reason": "#3"};
+     "days_taken": 3,"days_left": 3,"leave_type": "#3","reason": "#3"};
+     
      req: Irequest[] = [];
+
+     annualLeaveDays: number = 15;
 
     constructor(private request: ApiRequestService){
         this.appGetRequests();
@@ -43,13 +46,21 @@ export class AppComponent {
    
 
     appPostRequests(){
-      //  this.request.postRequest(this.request_data).subscribe();
-      console.log(this.getName());
-      console.log(this.getSurname());
-      console.log(this.getEndDate());
-      console.log(this.getLeaveType());
-      console.log(this.getReason());
-      console.log(this.getStartDate());
+      //  this.request.postRequest(this.request_data).subscribe()
+      let data: string = this.getName()+","+this.getSurname()+","+this.getStartDate().value+","+ this.getEndDate().value+
+      +","+this.calculateDaysTaken()+","+this.getDaysLeft()+","+this.getLeaveType()+this.getReason();
+      
+      console.log(this.calculateDaysTaken());
+      console.log(data);
+      console.log("name: "+this.getName());
+      console.log("surname: "+this.getSurname());
+      console.log("start day: "+this.getStartDate().value);
+      console.log("end day:"+this.getEndDate().value);
+      console.log("days taken: "+this.calculateDaysTaken());
+      console.log("Days Left "+this.getDaysLeft());
+      console.log("leave type: "+this.getLeaveType());
+      console.log("reason: "+this.getReason());
+
     }
 
 
@@ -64,15 +75,30 @@ export class AppComponent {
       return this.requestGroup.controls.reason.value;
     }
      getStartDate(): AbstractControl{
-      return this.requestGroup.controls.start_date.value;
+      return this.requestGroup.controls.start_date;
     }
     getEndDate(): AbstractControl{
-      return this.requestGroup.controls.end_date.value;
+      return this.requestGroup.controls.end_date;
     }
 
     getLeaveType(): AbstractControl{
       return this.requestGroup.controls.leave_type.value;
     }
+
+    //Days taken
+    calculateDaysTaken(): number{
+        const msInDay = 24 * 60 * 60 * 1000;
+
+       let endDate = new Date(this.getEndDate().value);
+       let startDate = new Date(this.getStartDate().value);
+
+        return Math.round(Math.abs(Number(endDate) - Number(startDate)) / msInDay)
+    }
+
+    getDaysLeft():number{
+      return (this.annualLeaveDays-this.calculateDaysTaken());
+    }
+
 }
 
 
