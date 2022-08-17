@@ -1,10 +1,11 @@
-
 <div>
-     <h1>Leave Management System</h1>
+  <div>
+    <h1>Leave Management System</h1>
+  </div>
 </div>
 
 <div>
-  <div>
+  <div class="">
     <table class="table table-striped">
       <thead style="background-color: lightblue;">
         <tr>
@@ -17,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor ="let request of req">
+        <tr *ngFor="let request of req">
           <th>{{request.id}}</th>
           <td>{{request.name}}</td>
           <td>{{request.surname}}</td>
@@ -27,5 +28,66 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div style="background-color: gray; padding:30px">
+  <div class="">
+    <form>
+      <div class="row ">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="First Name">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Last Name">
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col">
+          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+            <option selected>Type Of Leave...</option>
+            <option value="Annual Leave">Annual Leave</option>
+            <option value="Sick Leave">Sick Leave</option>
+            <option value="Maternity Leave">Maternity Leave</option>
+            <option value="Family Responsibility Leave">Family Responsibility Leave</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col ">
+          <label for="start-date">Start Of Leave</label>
+          <input type="date" class="form-control" id="start-date">
+        </div>
+        <div class="col">
+          <label for="end-date">End Of Leave</label>
+          <input type="date" class="form-control" id="end-date">
+        </div>
+      </div>
+
+      <div class="row ">
+        <div class="col">
+          <span>#</span>Leave days taken
+        </div>
+        <div class="col">
+          <span>#</span>Leave days left
+        </div>
+      </div>
+
+      <div class="row">
+        
+          <textarea placeholder="Reason for the leave request...">
+          </textarea>
+      
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-secondary">Secondary</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
