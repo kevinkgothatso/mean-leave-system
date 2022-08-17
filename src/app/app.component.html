@@ -9,7 +9,6 @@
     <table class="table table-striped">
       <thead style="background-color: lightblue;">
         <tr>
-          <th scope="col">Index</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
           <th scope="col">Leave Type</th>
@@ -22,7 +21,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let request of req">
-          <th>{{request.id}}</th>
           <td>{{request.name}}</td>
           <td>{{request.surname}}</td>
           <td>{{request.start_date}}</td>
@@ -73,11 +71,16 @@
       </div>
 
       <div class="row ">
-        <div class="col">
-          <span>#</span>Leave days taken
+        <div *ngIf="isDateNull()" class="col">
+          <span>{{ calculateDaysTaken()}}</span>Leave days taken
         </div>
-        <div class="col">
-          <span>#</span>Leave days left
+
+        <div *ngIf="isDateNull()" class="col">
+          <span>{{ getDaysLeft()}}</span>Leave days left
+        </div>
+
+        <div *ngIf="!isDateNull()" class="col">
+          N.B  You Cannot take leave days greater than 15 days
         </div>
       </div>
 
