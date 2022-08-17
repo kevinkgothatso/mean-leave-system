@@ -3,7 +3,7 @@
     <h1>Leave Management System</h1>
   </div>
 </div>
-
+<!-- table for request -->
 <div>
   <div class="">
     <table class="table table-striped">
@@ -12,9 +12,12 @@
           <th scope="col">Index</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
+          <th scope="col">Leave Type</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
-          <th scope="col">Days Requested</th>
+          <th scope="col">Days Taken</th>
+          <th scope="col">Days Left</th>
+          <th scope="col">Reason For Leave</th>
         </tr>
       </thead>
       <tbody>
@@ -25,27 +28,30 @@
           <td>{{request.start_date}}</td>
           <td>{{request.end_date}}</td>
           <td>{{request.days_taken}}</td>
+          <td>{{request.days_left}}</td>
+          <td>{{request.leave_type}}</td>
+          <td>{{request.reason}}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-
+<!-- Form -->
 <div style="background-color: gray; padding:30px">
   <div class="">
-    <form>
+      <form (ngSubmit)="appPostRequests()" [formGroup]="requestGroup">
       <div class="row ">
         <div class="col">
-          <input type="text" class="form-control" placeholder="First Name">
+          <input type="text" class="form-control" placeholder="First Name" formControlName="name">
         </div>
         <div class="col">
-          <input type="text" class="form-control" placeholder="Last Name">
+          <input type="text" class="form-control" placeholder="Last Name" formControlName="surname">
         </div>
       </div>
 
       <div class="row ">
         <div class="col">
-          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="leave_type">
             <option selected>Type Of Leave...</option>
             <option value="Annual Leave">Annual Leave</option>
             <option value="Sick Leave">Sick Leave</option>
@@ -58,11 +64,11 @@
       <div class="row ">
         <div class="col ">
           <label for="start-date">Start Of Leave</label>
-          <input type="date" class="form-control" id="start-date">
+          <input type="date" class="form-control" id="start-date" formControlName="start_date">
         </div>
         <div class="col">
           <label for="end-date">End Of Leave</label>
-          <input type="date" class="form-control" id="end-date">
+          <input type="date" class="form-control" id="end-date" formControlName="end_date">
         </div>
       </div>
 
@@ -77,7 +83,7 @@
 
       <div class="row">
         
-          <textarea placeholder="Reason for the leave request...">
+          <textarea placeholder="Reason for the leave request..." formControlName="reason">
           </textarea>
       
       </div>
@@ -85,9 +91,9 @@
 
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-secondary">Secondary</button>
+          <input type="submit" class="btn btn-secondary" value="Secondary">
         </div>
       </div>
     </form>
   </div>
-</div>
+</div> 
