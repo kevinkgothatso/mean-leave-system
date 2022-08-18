@@ -5,9 +5,9 @@
 </div>
 <!-- table for request -->
 <div>
-  <div class="">
+  <div class="container">
     <table class="table table-striped">
-      <thead style="background-color: lightblue;">
+      <thead class="table-header">
         <tr>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
@@ -35,9 +35,11 @@
   </div>
 </div>
 <!-- Form -->
-<div style="background-color: gray; padding:30px">
+<div class="container form">
   <div class="">
+
       <form (ngSubmit)="appPostRequests()" [formGroup]="requestGroup">
+
       <div class="row ">
         <div class="col">
           <input type="text" class="form-control" placeholder="First Name" formControlName="name">
@@ -47,10 +49,10 @@
         </div>
       </div>
 
-      <div class="row ">
-        <div class="col">
-          <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="leave_type">
-            <option selected>Type Of Leave...</option>
+      <div class="row">
+        <div class="col col-select">
+          <select class="custom-select mr-sm-2 drop-down" id="inlineFormCustomSelect" formControlName="leave_type">
+            <option selected disabled value="">Type Of Leave...</option>
             <option value="Annual Leave">Annual Leave</option>
             <option value="Sick Leave">Sick Leave</option>
             <option value="Maternity Leave">Maternity Leave</option>
@@ -70,33 +72,33 @@
         </div>
       </div>
 
-      <div class="row ">
-        <div *ngIf="isDateNull()" class="col">
+      <div class="row">
+        <div *ngIf="isDateNull()" class="col text-days">
           <span>{{ calculateDaysTaken()}}</span>Leave days taken
         </div>
 
-        <div *ngIf="isDateNull()" class="col">
+        <div *ngIf="isDateNull()" class="col text-days">
           <span>{{ getDaysLeft()}}</span>Leave days left
         </div>
 
-        <div *ngIf="!isDateNull()" class="col">
+        <div *ngIf="!isDateNull()" class="col text-days">
           N.B  You Cannot take leave days greater than 15 days
         </div>
       </div>
 
       <div class="row">
-        
+        <div class="col">
           <textarea placeholder="Reason for the leave request..." formControlName="reason">
           </textarea>
-      
+        </div>
       </div>
-
 
       <div class="row">
         <div class="col">
-          <input type="submit" class="btn btn-secondary" value="Secondary">
+          <input type="submit" class="btn btn-secondary btn-submit" value="Submit Leave">
         </div>
       </div>
+
     </form>
   </div>
 </div> 
