@@ -21,6 +21,14 @@ input[type="date"]{
     color: #6c7596;
 }
 
+.drop-down:active{
+    width: 35%;
+    /* border-radius: 10px; */
+    border-color: #17d617;
+    border-width: 0.11rem;
+    color: #6c7596;
+}
+
 .form{
     padding: 2rem;
     border-radius: 10px;

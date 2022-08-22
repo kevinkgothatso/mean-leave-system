@@ -27,7 +27,7 @@ export class AppComponent {
     end_date: new FormControl(),
     days_taken: new FormControl(),
     days_left: new FormControl(),
-    leave_type: new FormControl(),
+    leave_type: new FormControl("Type Of Leave..."),
     reason: new FormControl(),
   });
 
