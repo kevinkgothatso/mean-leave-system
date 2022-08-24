@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const leave_requestSchema = new schema({
-    _id: String,
+    
     name: String,
     surname: String,
     start_date: String,
