@@ -10,7 +10,7 @@ export class ApiRequestService {
   constructor(private http: HttpClient){
   }
 
-  url: string = "http://localhost:3000/requests";
+  url: string = "http://localhost:8080";
 
   getRequests(): Observable<Irequest[]>{
      return this.http.get<Irequest[]>(this.url);
