@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { ApiRequestService } from './services/api-request.service';
 import { Irequest } from './interfaces/irequest';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+
+const endDateType: Date = new Date();
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   //varaiable to hold data temporarily
   req: Irequest[] = [];
@@ -15,27 +18,33 @@ export class AppComponent {
   //anual leave
   annualLeaveDays: number = 15;
 
+  invalid: boolean = false;
+
+
   constructor(private request: ApiRequestService) {
     this.appGetRequests();
   }
 
 
   requestGroup = new FormGroup({
-    name: new FormControl(),
-    surname: new FormControl(),
-    start_date: new FormControl(),
-    end_date: new FormControl(),
-    days_taken: new FormControl(),
-    days_left: new FormControl(),
-    leave_type: new FormControl(),
-    reason: new FormControl(),
+    name: new FormControl(null, Validators.required),
+    surname: new FormControl(null, Validators.required),
+    start_date: new FormControl(null, Validators.required),
+    end_date: new FormControl(null, Validators.required),
+    days_taken: new FormControl(null),
+    days_left: new FormControl(null),
+    leave_type: new FormControl("Type Of Leave...", Validators.required),
+    reason: new FormControl(null, Validators.required)
   });
+
+
+  //end date
+  endDateType = this.requestGroup.controls.end_date.value;
 
   //getting form data
   appGetRequests() {
     this.request.getRequests().subscribe(
       (data: Irequest[]) => {
-        console.table(data);
         this.req = data;
       }
     );
@@ -47,13 +56,30 @@ export class AppComponent {
   appPostRequests() {
     let data: Irequest = {
       "name": this.getName().value, "surname": this.getSurname().value, "start_date": this.getStartDate().value,
-      "end_date": this.getEndDate().value, "days_taken": this.calculateDaysTaken(), "days_left": this.getDaysLeft(),
+      "end_date": this.getEndDate().value, "days_taken": this.calculateDaysTaken(), "days_left": this.calcDaysLeft(),
       "leave_type": this.getLeaveType().value, "reason": this.getReason().value
     };
 
-    this.request.postRequest(data).subscribe()
+    if (this.formValid()) {
+    this.request.postRequest(data).subscribe();
+    this.requestGroup.reset();
+    } 
+    else {
+      this.invalid = true;
+    }
+
+    console.log(this.isDateGreater());
+
   }
 
+  formValid(): boolean {
+    if (this.requestGroup.valid) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   //getters
   getName(): AbstractControl {
@@ -88,7 +114,7 @@ export class AppComponent {
 
 
   //Calculating Days  Left
-  getDaysLeft(): number {
+  calcDaysLeft(): number {
     return (this.annualLeaveDays - this.calculateDaysTaken());
   }
 
@@ -100,6 +126,42 @@ export class AppComponent {
     }
     else { return false }
   }
+
+
+  //checking wether end date is greater than start date
+  isDateGreater(): boolean{
+
+    let endDate = new Date(this.getEndDate().value);
+    let startDate = new Date(this.getStartDate().value);
+
+    if ( endDate > startDate) {
+      return true ;
+    } 
+    else {
+      return false ;
+    }
+  }
+
+  isDaysLeftNeg(): boolean{
+       
+        if(this.calcDaysLeft() <= -1){
+            return true;
+        }
+        else{
+          return false;
+        }
+  }
+
 }
 
+
+// export function validateDaysLeft(input: FormControl): { [s: string]: boolean }{
+//     console.log(input.value);
+//   if(input.value <= -1){
+//     return {daysLeftValidator: true};
+//   }
+//   else{
+//     return {daysLeftValidator: false};
+//   }
+// }
 
