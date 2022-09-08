@@ -55,20 +55,18 @@ export class AppComponent {
   //posting form data
   appPostRequests() {
     let data: Irequest = {
-      "name": this.getName().value, "surname": this.getSurname().value, "start_date": this.getStartDate().value,
-      "end_date": this.getEndDate().value, "days_taken": this.calculateDaysTaken(), "days_left": this.calcDaysLeft(),
-      "leave_type": this.getLeaveType().value, "reason": this.getReason().value
+      name: this.getName().value, surname: this.getSurname().value, start_date: this.getStartDate().value,
+      end_date: this.getEndDate().value, days_taken: this.calculateDaysTaken(), days_left: this.calcDaysLeft(),
+      leave_type: this.getLeaveType().value, reason: this.getReason().value
     };
 
     if (this.formValid()) {
-    this.request.postRequest(data).subscribe();
-    this.requestGroup.reset();
-    } 
+      this.request.postRequest(data).subscribe();
+      this.requestGroup.reset();
+    }
     else {
       this.invalid = true;
     }
-
-    console.log(this.isDateGreater());
 
   }
 
@@ -129,39 +127,28 @@ export class AppComponent {
 
 
   //checking wether end date is greater than start date
-  isDateGreater(): boolean{
+  isDateGreater(): boolean {
 
     let endDate = new Date(this.getEndDate().value);
     let startDate = new Date(this.getStartDate().value);
 
-    if ( endDate > startDate) {
-      return true ;
-    } 
+    if (endDate > startDate) {
+      return true;
+    }
     else {
-      return false ;
+      return false;
     }
   }
 
-  isDaysLeftNeg(): boolean{
-       
-        if(this.calcDaysLeft() <= -1){
-            return true;
-        }
-        else{
-          return false;
-        }
+  isDaysLeftNeg(): boolean {
+
+    if (this.calcDaysLeft() <= -1) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
 }
-
-
-// export function validateDaysLeft(input: FormControl): { [s: string]: boolean }{
-//     console.log(input.value);
-//   if(input.value <= -1){
-//     return {daysLeftValidator: true};
-//   }
-//   else{
-//     return {daysLeftValidator: false};
-//   }
-// }
 

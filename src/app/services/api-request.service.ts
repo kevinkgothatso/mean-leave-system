@@ -17,6 +17,8 @@ export class ApiRequestService {
   }
 
   postRequest(Requestdata: Irequest): Observable<Irequest>{
-     return this.http.post<Irequest>(this.url,Requestdata);
+    console.log('service:');
+    console.log(Requestdata);
+     return this.http.post<Irequest>(`${this.url}/post`,Requestdata);
   }
 }

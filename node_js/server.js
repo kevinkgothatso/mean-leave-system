@@ -42,10 +42,10 @@ app.post('/post', async (req, res) => {
             reason: reason
         }
     );
-
+    console.log('server:');
     console.log(request);
     await request.save();
-    res.status(201).json("sent");
+    res.status(201).json();
 });
 
 
