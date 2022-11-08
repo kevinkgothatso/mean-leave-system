@@ -12,3 +12,4 @@ at the manager can then look at the requests posted  by the employyes
  
  # run app
  download code from this repository and run code "npm i"
+ this project uses a backend project called "api_node leave stystem"
